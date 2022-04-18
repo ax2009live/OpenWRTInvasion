@@ -44,7 +44,8 @@ busybox 通过漏洞上传，<br>
   <pre>
   #!/bin/sh
   /usr/sbin/iptables -I INPUT -p tcp -m multiport --dport 23,80 -s 10.0.0.0/24 -j ACCEPT
-  # 10.0.0.0/24 为路由器登录 vpn server 后的网段，这样防火墙开通端口后，这样外部可以通过 vpn 的方式来访问到此路由器的 23 80 端口；
+  # 10.0.0.0/24 为路由器登录 vpn server 后的网段，防火墙开通网段10.0.0.0/24的23.80端口后，
+  # 外部可以通过 vpn 的方式来访问到此路由器的 23 80 端口；
   /userdisk/ddns/busybox  telnetd
   # 开启 tenet 服务</pre>
   打开 /etc/rc.local，然后在 exit 0 之前增加一行 /data/ddns/drop 保存退出，<br>
