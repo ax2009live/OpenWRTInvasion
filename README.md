@@ -63,6 +63,8 @@ busybox 通过漏洞上传，<br>
 ![image](https://user-images.githubusercontent.com/41521020/163875371-9b1f9904-6996-4430-a1d4-9e752ef2cef8.png)
 
 （ 如有朋友能提供文件大小比较小的 busybox，请邮件联系我，谢谢 ）<br>
+运行 start_telnet_高通MIPS_需网络.bat 输入路由器的 IP 地址和 stok 值，完成就可以 telnet 登录路由器了；
+
 打开 /etc/rc.local，然后在 exit 0 之前增加一行 /data/ddns/drop 保存退出，
   
   新建目录 <pre>mkdir -p /data/ddns</pre>
