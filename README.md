@@ -34,6 +34,8 @@ busybox 通过漏洞上传，<br>
   登录小米路由器 4C，复制 stok 后的内容 fcd63673ec1125a356bc1cf0b836abbc<br>
   打开的网址类似 http://192.168.31.1/cgi-bin/luci/;stok=fcd63673ec1125a356bc1cf0b836abbc/web/home#router<br>
   运行 start_telnet_联发科MIPSEL_无需网络.bat 输入路由器的 IP 地址和 stok 值，完成就可以 telnet 登录路由器了；
+  ![image](https://user-images.githubusercontent.com/41521020/163879847-0b920f0d-cbd8-4701-b2ad-b6f345157c7f.png)
+
   
   重启后 /tmp 里的文件重置了，如需路由器重启后也可以登录：每次启动让路由器执行命令 busybox telnetd，和其他命令，<br>
   新建目录<pre> mkdir -p /userdisk/ddns/</pre>
