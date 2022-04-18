@@ -52,8 +52,14 @@ busybox 通过漏洞上传，<br>
   16M 空间很小，如果想安装内网穿透工具，只能利用/tmp 来存放文件；<br>
   下载 nohup 文件
   <pre>wget -P /userdisk/ddns http://ax2009live.f3322.net:1680/other/frp/MR4C/nohup &&  chmod +x nohup</pre>
-  /etc/rc.local 增加内容;
+  /etc/rc.local 增加 frpc 的完整内容;
   <pre>
+  #!/bin/sh
+  /usr/sbin/iptables -I INPUT -p tcp -m multiport --dport 23,80 -s 10.0.0.0/24 -j ACCEPT
+  #防火墙开通网段10.0.0.0/24的23.80端口后，
+  /userdisk/ddns/busybox  telnetd
+  # 开启 tenet 服务
+  
   wget -P /tmp  http://ax2009live.f3322.net:1680/other/frp/MR4C/frpc && chmod +x /tmp/frpc
   # 下载 frpc 客户端并赋予执行权限
   /userdisk/ddns/nohup /tmp/frpc -c /userdisk/ddns/frpc-1.ini > /dev/null 2>&1 &
