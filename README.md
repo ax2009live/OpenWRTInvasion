@@ -28,8 +28,9 @@ busybox 通过漏洞上传，<br>
 参考了 https://github.com/acecilia/OpenWRTInvasion 和网络上的帖子，发现都很复杂，且都是劝用户刷其他的固件；
 
 
-如下是我的使用方法，供有需要的朋友参考；压缩档下载后解压
-## 下面以小米路由器 4C 和 4Q 为例来说明，其他的大同小异，原理搞清楚，其他 cpu 版也类似；
+上面这些路由器型号，磁盘空间和内存都很小，即使开了 telnet 能发挥的空间很小<br>
+如下是我的使用方法，供有需要的朋友参考 ( 其他 openwrt 应也类似 )；压缩档下载后解压
+### 下面以小米路由器 4C 和 4Q 为例来说明，其他的大同小异，原理搞清楚，其他 cpu 版也类似；
 ### 小米路由器 4C： 文件里已内置了 busybox，无需网络，使用联发科的cpu，一般都是 MIPSEL 
   登录小米路由器 4C，复制 stok 后的内容 fcd63673ec1125a356bc1cf0b836abbc<br>
   打开的网址类似 http://192.168.31.1/cgi-bin/luci/;stok=fcd63673ec1125a356bc1cf0b836abbc/web/home#router<br>
@@ -50,7 +51,7 @@ busybox 通过漏洞上传，<br>
   # 开启 tenet 服务</pre>
   打开 /etc/rc.local，然后在 exit 0 之前增加一行 /data/ddns/drop 保存退出，<br>
   16M 空间很小，如果想安装内网穿透工具，只能利用/tmp 来存放文件；<br>
-  下载 nohup 文件
+  下载 nohup 文件 ( 如果路由器本身有这个文件，不用下载 输入 which nohup 即可查询)
   <pre>wget -P /userdisk/ddns http://ax2009live.f3322.net:1680/other/frp/MR4C/nohup &&  chmod +x nohup</pre>
   /etc/rc.local 增加 frpc 的完整内容;
   <pre>
@@ -119,6 +120,12 @@ busybox 通过漏洞上传，<br>
   有朋友可能会问，为什么不使用 ssh 端口登录，因为 4C 和 4Q 都没有 ssh 的服务器程序 dropbear，所以无法开启 22 端口；<br>
   输入 which dropbear 能看到位置，说明可以开通 22 端口，就不需要 23 端口了；<br>
   ![image](https://user-images.githubusercontent.com/41521020/163878440-2ae7c733-737f-4531-ada5-9fa81441fd57.png)
+
+远程登录路由器网页，常用设置 - 上网设置 / 高级设置 - DDNS，这两个选择无法打开，提示 Internal Server Error
+
+  常用设置 - 上网设置  远程操作是非常危险的，无法打开不碍事，手机 app 可以操作<br>
+  高级设置 - DDNS  可以在后台修改；在其他小米路由器下设置好后，把代码复制过来即可；<br>
+  ![image](https://user-images.githubusercontent.com/41521020/163938649-df79d0f5-fc03-4f88-86a4-7b95288c1c9d.png)
 
 
   
