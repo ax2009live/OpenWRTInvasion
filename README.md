@@ -127,6 +127,10 @@ busybox 通过漏洞上传，<br>
   高级设置 - DDNS  可以在后台修改；在其他小米路由器下设置好后，把代码复制过来即可；<br>
   ![image](https://user-images.githubusercontent.com/41521020/163938649-df79d0f5-fc03-4f88-86a4-7b95288c1c9d.png)
 
+如果你的路由器有公网 IP，后台输入
+  <pre>iptables -t nat -I PREROUTING -p tcp --dport 1880 -j REDIRECT --to-ports 80 </pre>
+  http://路由器ip:1880  即可访问路由器 web 页面，<br>
+  ( 一定要 ip，不要用域名，http://路由器域名:1880 会提示错误 502 Bad Gateway )
 
   
   
