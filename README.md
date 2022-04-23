@@ -33,7 +33,7 @@ busybox 通过漏洞上传，<br>
 ### 小米路由器 4C： 文件里已内置了 busybox，无需网络，使用联发科的cpu，一般都是 MIPSEL 
   登录小米路由器 4C，复制 stok 后的内容 eaf674089639e9c6c4361d7a85e9e621<br>
   打开的网址类似 http://192.168.28.1/cgi-bin/luci/;stok=eaf674089639e9c6c4361d7a85e9e621/web/home#router<br>
-  运行 start_telnet_联发科MIPSEL_无需网络.bat 输入路由器的 IP 地址和 stok 值，完成就可以 telnet 登录路由器了；
+  运行 start_telnet_联发科MIPSEL_无需网络.bat 输入路由器的 IP 地址和 stok 值，完成就可以 telnet 登录路由器了；<br>
   ![image](https://user-images.githubusercontent.com/41521020/164891450-f034406a-739e-494d-b36b-1d725f8e98c3.png)
 
   
@@ -80,7 +80,7 @@ busybox 通过漏洞上传，<br>
   # 后台执行 frpc，
   </pre>  
   如果开机的时候网络有问题，没有下载 frpc 文件，则无法实现想要的功能，请参考小米路由器 4Q 内的方法：十分钟检查一下，如文件不存在，则下载后执行命令；
-### 小米路由器 4Q：我从 busybox.net 下载的 busybox 文件太大，所以无法上传，只能开机在线下载；CPU 架构 MIPS,跟联发科不一样；
+### 小米路由器 4Q：我从 busybox.net 下载的 busybox 文件太大，所以无法上传，只能开机在线下载；CPU 架构 MIPS,跟联发科不一样；<br>
 ![image](https://user-images.githubusercontent.com/41521020/163875371-9b1f9904-6996-4430-a1d4-9e752ef2cef8.png)
 
 （ 如有朋友能提供文件大小比较小的 busybox，请邮件联系我，谢谢 ）<br>
@@ -138,6 +138,7 @@ busybox 通过漏洞上传，<br>
 
   常用设置 - 上网设置  远程操作是非常危险的，回到路由器本地操作才安全<br>
   高级设置 - DDNS  可以在后台修改；在其他小米路由器下设置好后，把代码复制过来即可；<br>
+  如是二级路由器，web 页面看到的 WAN IP可能不是外网IP,不碍事从外面 ping，是外网ip的<br>
   ![image](https://user-images.githubusercontent.com/41521020/163938649-df79d0f5-fc03-4f88-86a4-7b95288c1c9d.png)
 
 如果你的路由器有公网 IP，后台输入
