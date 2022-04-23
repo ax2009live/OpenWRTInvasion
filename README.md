@@ -4,7 +4,7 @@
 都需要进入系统的权限；
 
   1、从外网能访问路由器的网页端；<br>
-  2、本地和外网能进入路由器系统里设置 - 通过内外穿透<br>
+  2、本地和外网能进入路由器系统里设置 - 通过 vpn 或内外穿透<br>
   3、能通过路由器访问路由器下的客户端 - 通过内外穿透
 
 ### 个人的观点：
@@ -15,6 +15,7 @@
 
 
 ### 方法分析
+参考了 https://github.com/acecilia/OpenWRTInvasion 和网络上的帖子，发现都很复杂，且都是劝用户刷其他的固件；<br>
 查看代码，
 <pre>cd /tmp
 rm -rf busybox
@@ -25,20 +26,31 @@ chmod +x  /tmp/busybox
 busybox 通过漏洞上传，<br>
 #### 不同 cpu 的架构需要相应的 busybox、frpc、nohup，不能混用
 
-参考了 https://github.com/acecilia/OpenWRTInvasion 和网络上的帖子，发现都很复杂，且都是劝用户刷其他的固件；
-
 
 上面这些路由器型号，磁盘空间和内存都很小，即使开了 telnet 能发挥的空间很小<br>
 如下是我的使用方法，供有需要的朋友参考 ( 其他 openwrt 应也类似 )；压缩档下载后解压
 ### 下面以小米路由器 4C 和 4Q 为例来说明，其他的大同小异，原理搞清楚，其他 cpu 版也类似；
 ### 小米路由器 4C： 文件里已内置了 busybox，无需网络，使用联发科的cpu，一般都是 MIPSEL 
-  登录小米路由器 4C，复制 stok 后的内容 fcd63673ec1125a356bc1cf0b836abbc<br>
-  打开的网址类似 http://192.168.31.1/cgi-bin/luci/;stok=fcd63673ec1125a356bc1cf0b836abbc/web/home#router<br>
+  登录小米路由器 4C，复制 stok 后的内容 eaf674089639e9c6c4361d7a85e9e621<br>
+  打开的网址类似 http://192.168.28.1/cgi-bin/luci/;stok=eaf674089639e9c6c4361d7a85e9e621/web/home#router<br>
   运行 start_telnet_联发科MIPSEL_无需网络.bat 输入路由器的 IP 地址和 stok 值，完成就可以 telnet 登录路由器了；
-  ![image](https://user-images.githubusercontent.com/41521020/163879847-0b920f0d-cbd8-4701-b2ad-b6f345157c7f.png)
+  ![image](https://user-images.githubusercontent.com/41521020/164891450-f034406a-739e-494d-b36b-1d725f8e98c3.png)
 
   
-  重启后 /tmp 里的文件重置了，如需路由器重启后也可以登录：每次启动让路由器执行命令 busybox telnetd，和其他命令，<br>
+  重启后 /tmp 里的文件重置了，如需路由器重启后也可以登录：每次启动让路由器执行命令 busybox telnetd 和其他命令，<br>
+  
+  原理：<br>
+  1、/etc/rc.local 添加开机执行脚本文件 /userdisk/ddns/drop<br>
+  ![image](https://user-images.githubusercontent.com/41521020/164891774-a10c89c0-7093-49f7-84f9-df859b839d0b.png)   
+
+  2、创建 /userdisk/ddns/drop 并赋予执行权限
+  
+     A、busybox telnetd 开启 23 端口 
+     B、开通 - 拨通 vpn server 后的网段的端口 23 80，比如 10.0.0.0/24 23 80 端口 
+     C、安装 frpc 内网穿透客户端
+     因为有两种可以远程登录路由器的方法 B C，所以大大提高了成功的几率
+     
+  实现过程如下：<br>
   新建目录<pre> mkdir -p /userdisk/ddns/</pre>
   把 busybox 复制到目录 ddns 里:<pre> cp /tmp/busybox /userdisk/ddns/</pre>
   vi /userdisk/ddns/drop, 内容如下，退出保存后，赋予执行权限 chmod +x /userdisk/ddns/drop，
@@ -67,6 +79,7 @@ busybox 通过漏洞上传，<br>
   /userdisk/ddns/nohup /tmp/frpc -c /userdisk/ddns/frpc-2.ini > /dev/null 2>&1 &
   # 后台执行 frpc，
   </pre>  
+  如果开机的时候网络有问题，没有下载 frpc 文件，则无法实现想要的功能，请参考小米路由器 4Q 内的方法：十分钟检查一下，如文件不存在，则下载后执行命令；
 ### 小米路由器 4Q：我从 busybox.net 下载的 busybox 文件太大，所以无法上传，只能开机在线下载；CPU 架构 MIPS,跟联发科不一样；
 ![image](https://user-images.githubusercontent.com/41521020/163875371-9b1f9904-6996-4430-a1d4-9e752ef2cef8.png)
 
@@ -91,7 +104,7 @@ busybox 通过漏洞上传，<br>
   /data/ddns/nohup /tmp/frpc -c /data/ddns/frpc-2.ini > /dev/null 2>&1 &
   </pre>
   可能有人会发现，如果开机的时候网络有问题，没有下载 busybox 和 frpc 文件，则无法实现想要的功能;<br>
-  所以我新建两个脚本文件来判断 busybox 和 frpc 是否存在，每十分钟检查一下:如文件不存在，则下载后执行命令；
+  所以我新建两个脚本文件来判断 busybox 和 frpc 是否存在，每十分钟检查一下，如文件不存在，则下载后执行命令；<br>
   busybox-test
   <pre> #!/bin/sh
   if [ ! -f "/tmp/busybox" ];then
@@ -123,14 +136,18 @@ busybox 通过漏洞上传，<br>
 
 远程登录路由器网页，常用设置 - 上网设置 / 高级设置 - DDNS，这两个选择无法打开，提示 Internal Server Error
 
-  常用设置 - 上网设置  远程操作是非常危险的，无法打开不碍事，手机 app 可以操作<br>
+  常用设置 - 上网设置  远程操作是非常危险的，回到路由器本地操作才安全<br>
   高级设置 - DDNS  可以在后台修改；在其他小米路由器下设置好后，把代码复制过来即可；<br>
   ![image](https://user-images.githubusercontent.com/41521020/163938649-df79d0f5-fc03-4f88-86a4-7b95288c1c9d.png)
 
 如果你的路由器有公网 IP，后台输入
-  <pre>iptables -t nat -I PREROUTING -p tcp --dport 1880 -j REDIRECT --to-ports 80 </pre>
+  <pre>/usr/sbin/iptables -t nat -I PREROUTING -p tcp --dport 1880 -j REDIRECT --to-ports 80 </pre>
   http://路由器ip:1880  即可访问路由器 web 页面，<br>
-  ( 一定要 ip，不要用域名，http://路由器域名:1880 会提示错误 502 Bad Gateway )
+  ( 不要用域名，http://路由器域名:1880 可能会提示错误 502 Bad Gateway )<br>
+  同理如下开通 ssh 端口，外网端口为 1822
+   <pre>/usr/sbin/iptables -t nat -I PREROUTING -p tcp --dport 1822 -j REDIRECT --to-ports 22 </pre>
+   如长期开通，drop 文件里增加上述命令，每次开机都执行；<br>
+   建议临时使用，不推荐长期使用， 
 
   
   
