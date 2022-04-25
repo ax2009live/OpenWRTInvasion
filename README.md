@@ -63,7 +63,8 @@ busybox 通过漏洞上传，<br>
   # 开启 tenet 服务</pre>
   打开 /etc/rc.local，然后在 exit 0 之前增加一行 /data/ddns/drop 保存退出，<br>
   16M 空间很小，如果想安装内网穿透工具，只能利用/tmp 来存放文件；<br>
-  下载 nohup 文件 ( 如果路由器本身有这个文件，不用下载 输入 which nohup 即可查询)
+  下载 nohup 文件 ( 如果路由器本身有这个文件，不用下载 输入 which nohup 即可查询)<br>
+  http://ax2009live.f3322.net:1680 是我开通的服务器，你也可以用自己的服务器，4C 不支持 https，
   <pre>wget -P /userdisk/ddns http://ax2009live.f3322.net:1680/other/frp/MR4C/nohup &&  chmod +x nohup</pre>
   /etc/rc.local 增加 frpc 的完整内容;
   <pre>
