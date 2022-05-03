@@ -151,14 +151,12 @@ busybox 通过漏洞上传，<br>
    如长期开通，drop 文件里增加上述命令，每次开机都执行；<br>
    建议临时使用，不推荐长期使用， 
 
-捐助我，谢谢！<br>
+捐助，谢！<br>
   PayPal to my account ax2009live@gmail.com<br>
   支付宝<br>
-  ![image](https://user-images.githubusercontent.com/41521020/166555022-029b4914-a230-4270-8bcb-e065c5c6d851.png)
-
-  <br>
-  微信<br>
-  ![image](https://user-images.githubusercontent.com/41521020/166555112-f16761ef-bb1b-4851-a370-4757d7a52c5f.png)
+  ![image](https://user-images.githubusercontent.com/41521020/166555022-029b4914-a230-4270-8bcb-e065c5c6d851.png) <br>
+  微信<br>  
+  ![image](https://user-images.githubusercontent.com/41521020/166555112-f16761ef-bb1b-4851-a370-4757d7a52c5f.png) <br>
 
   
   
