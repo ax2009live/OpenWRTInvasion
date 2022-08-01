@@ -1,4 +1,5 @@
-# OpenWRTInvasion  openwrt MiRouter telnet frpc 开启 openwrt 路由器 ( 小米路由器 ) 的 telnet，开通内网穿透；青春版 mini 3C 3A 4Q 4 4C 4A千兆版 4A 等
+# OpenWRTInvasion  openwrt MiRouter telnet frpc 开启 openwrt 路由器 ( 小米路由器 ) 的 telnet，开通内网穿透；青春版 mini 3C 3A 4Q 4 4C 4A千兆版 4A 等；不用虚拟机，不用安装任何东西，不用 linux，下载即可破解使用
+给无开发版、空间小、内存小的小米路由器一个使用方法，其他 小米路由器也可以参考此方法；
 
 ### 我想要的功能
 都需要进入系统的权限；
