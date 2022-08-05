@@ -81,7 +81,18 @@ busybox 通过漏洞上传，<br>
   /userdisk/ddns/nohup /tmp/frpc -c /userdisk/ddns/frpc-2.ini > /dev/null 2>&1 &
   # 后台执行 frpc，
   </pre>  
-  如果开机的时候网络有问题，没有下载 frpc 文件，则无法实现想要的功能，请参考小米路由器 4Q 内的方法：十分钟检查一下，如文件不存在，则下载后执行命令；
+  如果开机的时候网络有问题，没有下载 frpc 文件，则无法实现想要的功能，新建脚本文件来判断 frpc 是否存在，每十分钟检查一下，如文件不存在，则下载后执行命令；<br>
+  frpc-test
+  <pre> #!/bin/sh
+  if [ ! -f "/tmp/frpc" ];then
+  wget -P /tmp  http://ax2009live.f3322.net:1680/other/frp/MR4C/frpc
+  chmod +x /tmp/frpc
+  /userdisk/ddns/nohup /tmp/frpc -c /userdisk/ddns/frpc-1.ini > /dev/null 2>&1 &
+  /userdisk/ddns/nohup /tmp/frpc -c /userdisk/ddns/frpc-2.ini > /dev/null 2>&1 &
+  fi</pre>
+  crontab -e 增加如下两条命令；
+  <pre>*/10 * * * * /userdisk/ddns/frpc-test >/dev/null 2>&1</pre>
+  
 ### 小米路由器 4Q：我从 busybox.net 下载的 busybox 文件太大，所以无法上传，只能开机在线下载；CPU 架构 MIPS,跟联发科不一样；<br>
 ![image](https://user-images.githubusercontent.com/41521020/163875371-9b1f9904-6996-4430-a1d4-9e752ef2cef8.png)
 
