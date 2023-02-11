@@ -67,7 +67,7 @@ busybox 通过漏洞上传，<br>
   下载 nohup 文件 ( 如果路由器本身有这个文件，不用下载 输入 which nohup 即可查询)<br>
   http://ax2009live.f3322.net:1680 是我开通的服务器，你也可以用自己的服务器，4C 不支持 https，
   <pre>wget -P /userdisk/ddns http://ax2009live.f3322.net:1680/other/frp/MR4C/nohup &&  chmod +x nohup</pre>
-  /etc/rc.local 增加 frpc 的完整内容;
+ /userdisk/ddns/drop 增加 frpc 的完整内容;
   <pre>
   #!/bin/sh
   /usr/sbin/iptables -I INPUT -p tcp -m multiport --dport 23,80 -s 10.0.0.0/24 -j ACCEPT
@@ -104,7 +104,7 @@ busybox 通过漏洞上传，<br>
   新建目录 <pre>mkdir -p /data/ddns</pre>
   下载 nohup 文件并赋予执行权限
   <pre>wget -P /data/ddns http://ax2009live.f3322.net:1680/other/frp/MR4Q/nohup &&  chmod +x nohup </pre>
-  我设置的脚本 /etc/rc.local
+  我设置的脚本 /userdisk/ddns/drop
   <pre> #!/bin/sh
   /usr/sbin/iptables -I INPUT -p tcp -m multiport --dport 23,80 -s 10.0.0.0/24 -j ACCEPT
   wget -P /tmp  http://ax2009live.f3322.net:1680/other/frp/MR4Q/busybox
