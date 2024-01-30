@@ -65,8 +65,8 @@ busybox 通过漏洞上传，<br>
   打开 /etc/rc.local，然后在 exit 0 之前增加一行 /data/ddns/drop 保存退出，<br>
   16M 空间很小，如果想安装内网穿透工具，只能利用/tmp 来存放文件；<br>
   下载 nohup 文件 ( 如果路由器本身有这个文件，不用下载 输入 which nohup 即可查询)<br>
-  http://ax2009live.f3322.net:1680 是我开通的服务器，你也可以用自己的服务器，4C 不支持 https，
-  <pre>wget -P /userdisk/ddns http://ax2009live.f3322.net:1680/other/frp/MR4C/nohup &&  chmod +x nohup</pre>
+  http://d80.ax2009live.top:1680 是我开通的服务器，你也可以用自己的服务器，4C 不支持 https，
+  <pre>wget -P /userdisk/ddns http://d80.ax2009live.top:1680/other/frp/MR4C/nohup &&  chmod +x nohup</pre>
  /userdisk/ddns/drop 增加 frpc 的完整内容;
   <pre>
   #!/bin/sh
@@ -75,7 +75,7 @@ busybox 通过漏洞上传，<br>
   /userdisk/ddns/busybox  telnetd
   # 开启 tenet 服务
   
-  wget -P /tmp  http://ax2009live.f3322.net:1680/other/frp/MR4C/frpc && chmod +x /tmp/frpc
+  wget -P /tmp  http://d80.ax2009live.top:1680/other/frp/MR4C/frpc && chmod +x /tmp/frpc
   # 下载 frpc 客户端并赋予执行权限
   /userdisk/ddns/nohup /tmp/frpc -c /userdisk/ddns/frpc-1.ini > /dev/null 2>&1 &
   /userdisk/ddns/nohup /tmp/frpc -c /userdisk/ddns/frpc-2.ini > /dev/null 2>&1 &
@@ -85,7 +85,7 @@ busybox 通过漏洞上传，<br>
   frpc-test
   <pre> #!/bin/sh
   if [ ! -f "/tmp/frpc" ];then
-  wget -P /tmp  http://ax2009live.f3322.net:1680/other/frp/MR4C/frpc
+  wget -P /tmp  http://d80.ax2009live.top:1680/other/frp/MR4C/frpc
   chmod +x /tmp/frpc
   /userdisk/ddns/nohup /tmp/frpc -c /userdisk/ddns/frpc-1.ini > /dev/null 2>&1 &
   /userdisk/ddns/nohup /tmp/frpc -c /userdisk/ddns/frpc-2.ini > /dev/null 2>&1 &
@@ -103,15 +103,15 @@ busybox 通过漏洞上传，<br>
   
   新建目录 <pre>mkdir -p /data/ddns</pre>
   下载 nohup 文件并赋予执行权限
-  <pre>wget -P /data/ddns http://ax2009live.f3322.net:1680/other/frp/MR4Q/nohup &&  chmod +x nohup </pre>
+  <pre>wget -P /data/ddns http://d80.ax2009live.top:1680/other/frp/MR4Q/nohup &&  chmod +x nohup </pre>
   我设置的脚本 /data/ddns/drop
   <pre> #!/bin/sh
   /usr/sbin/iptables -I INPUT -p tcp -m multiport --dport 23,80 -s 10.0.0.0/24 -j ACCEPT
-  wget -P /tmp  http://ax2009live.f3322.net:1680/other/frp/MR4Q/busybox
+  wget -P /tmp  http://d80.ax2009live.top:1680/other/frp/MR4Q/busybox
   chmod +x /tmp/busybox
   /tmp/busybox telnetd
   
-  wget -P /tmp  http://ax2009live.f3322.net:1680/other/frp/MR4Q/frpc
+  wget -P /tmp  http://d80.ax2009live.top:1680/other/frp/MR4Q/frpc
   chmod +x /tmp/frpc
   /data/ddns/nohup /tmp/frpc -c /data/ddns/frpc-1.ini > /dev/null 2>&1 &
   /data/ddns/nohup /tmp/frpc -c /data/ddns/frpc-2.ini > /dev/null 2>&1 &
@@ -121,14 +121,14 @@ busybox 通过漏洞上传，<br>
   busybox-test
   <pre> #!/bin/sh
   if [ ! -f "/tmp/busybox" ];then
-  wget -P /tmp  http://ax2009live.f3322.net:1680/other/frp/MR4Q/busybox
+  wget -P /tmp  http://d80.ax2009live.top:1680/other/frp/MR4Q/busybox
   chmod +x /tmp/busybox
   /tmp/busybox telnetd
   fi</pre>
   frpc-test 
   <pre> #!/bin/sh
   if [ ! -f "/tmp/frpc" ];then
-  wget -P /tmp  http://ax2009live.f3322.net:1680/other/frp/MR4Q/frpc
+  wget -P /tmp  http://d80.ax2009live.top:1680/other/frp/MR4Q/frpc
   chmod +x /tmp/frpc
   /data/ddns/nohup /tmp/frpc -c /data/ddns/frpc-1.ini > /dev/null 2>&1 &
   /data/ddns/nohup /tmp/frpc -c /data/ddns/frpc-2.ini > /dev/null 2>&1 &
